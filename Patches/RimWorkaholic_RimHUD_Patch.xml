@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Patch>
+  <Operation Class="PatchOperationAdd">
+    <xpath>/Defs/StatDef[defName="RimHUD_Custom_Stat_1"]</xpath>
+    <value>
+      <StatDef>
+        <defName>RimWorkaholicProductivityScore</defName>
+        <label>Productivity Score</label>
+        <description>Productivity score calculated by the RimWorkaholic mod.</description>
+        <category>Work</category>
+        <defaultBaseValue>0</defaultBaseValue>
+        <showIfUndefined>false</showIfUndefined>
+      </StatDef>
+    </value>
+  </Operation>
+</Patch>

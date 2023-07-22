@@ -8,7 +8,7 @@ namespace RimWorkaholic
     {
         private float workOutput = 0f;
         private float score = 0f;
-        private Queue<float> workOutputHistory = new Queue<float>();
+        private Queue<float> workOutputHistory = new();
         private const int DaysInQuadrum = 15;
 
         public Settings ModSettings { get; set; }
@@ -28,25 +28,21 @@ namespace RimWorkaholic
             base.PostExposeData();
             Scribe_Values.Look(ref workOutput, "workOutput", 0f);
             Scribe_Values.Look(ref score, "score", 0f);
-            Scribe_Collections.Look(ref workOutputHistory, "workOutputHistory", LookMode.Value);
+            Scribe_Deep.Look(ref workOutputHistory, "workOutputHistory");
         }
 
         public float GetScore()
         {
-            if (parent is Pawn pawn)
-            {
-                return CalculateWorkOutputScore(pawn, ModSettings);
-            }
-            return 0f;
+            return score;
         }
 
         public override void CompTick()
         {
             base.CompTick();
 
-            if (parent is Pawn pawn)
+            if (parent is Pawn)
             {
-                score = GetScore();
+                score = CalculateWorkOutputScore(ModSettings);
             }
         }
 
@@ -70,30 +66,30 @@ namespace RimWorkaholic
             public DisplayFormat ScoreDisplayFormat { get; set; }
         }
 
-        public float CalculateWorkOutputScore(Pawn pawn, Settings settings)
+        public float CalculateWorkOutputScore(Settings settings)
         {
-            float score = 0f;
+            float calculatedScore = 0f;
 
             switch (settings.ScoreCalculationMethod)
             {
                 case Settings.CalculationMethod.SimpleSum:
                     // Calculate score using simple sum method
-                    score = workOutput;
+                    calculatedScore = workOutput;
                     break;
                 case Settings.CalculationMethod.WeightedAverage:
                     // Calculate score using weighted average method
                     // You can adjust the weight of the work efficiency in the final score
                     float workEfficiencyWeight = 0.8f;
-                    score = (workOutput / DaysInQuadrum) * workEfficiencyWeight;
+                    calculatedScore = (workOutput / DaysInQuadrum) * workEfficiencyWeight;
                     break;
                 case Settings.CalculationMethod.CustomFormula:
                     // Calculate score using custom formula method
                     // Replace this with your own custom formula
-                    score = workOutput * 2;
+                    calculatedScore = workOutput * 2;
                     break;
             }
 
-            return score;
+            return calculatedScore;
         }
     }
 }

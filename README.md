@@ -10,9 +10,9 @@ RimWorkaholic is a RimWorld mod that calculates a productivity score for each pa
 
 ## Installation
 
-1. Download the mod from the release page or the Steam Workshop.
-2. Extract the contents of the downloaded archive to your RimWorld "Mods" folder.
-3. Enable the RimWorkaholic mod in the in-game mod manager.
+1. Download the latest release from the [Releases](https://github.com/Mycellius/RimWorkaholic/releases) page.
+2. Extract the contents of the downloaded archive to the `Mods` folder of your RimWorld installation.
+3. Enable the "RimWorkaholic" mod in the in-game mod manager.
 
 ## Usage
 
@@ -24,4 +24,4 @@ If you have any suggestions, bug reports, or contributions, please feel free to 
 
 ## License
 
-RimWorkaholic is released under the MIT License. See the LICENSE file for more information.
+RimWorkaholic is released under the [MIT License](LICENSE).

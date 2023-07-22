@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ModMetaData>
+  <name>RimWorkaholic</name>
+  <author>Mycellius</author>
+  <packageId>Mycellius.RimWorkaholic</packageId>
+  <url>https://yourmodwebsite.com</url>
+  <modVersion>0.1</modVersion>
+  <supportedVersions>
+    <li>1.4</li>
+</supportedVersions>
+  <description>Assigns a score to pawns based on their work output and displays it in the RimHUD interface.</description>
+</ModMetaData>

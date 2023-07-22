@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Operation Class="PatchOperationSequence">
-  <operations>
-    <li Class="PatchOperationAdd">
-      <xpath>Path to the RimHUD element where you want to add the score</xpath>
-      <value>
-        <li>
-          <label>Workaholic_ScoreLabel</label>
-          <valueString>YOUR_CODE_TO_GET_THE_SCORE</valueString>
+    <operations>
+        <li Class="PatchOperationAdd">
+            <xpath>Path to the RimHUD element where you want to add the score</xpath>
+            <value>
+                <li>
+                    <label>RimWorkaholic_ScoreLabel</label>
+                    <valueString>YOUR_CODE_TO_GET_THE_SCORE</valueString>
+                </li>
+            </value>
         </li>
-      </value>
-    </li>
-  </operations>
+    </operations>
 </Operation>

@@ -10,3 +10,9 @@
 
 # Built Visual Studio Code Extensions
 *.vsix
+
+# Working folders
+/!dev-only/
+/obj/
+/Sources
+/

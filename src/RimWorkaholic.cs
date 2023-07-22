@@ -1,5 +1,6 @@
 using RimWorld;
 using System.Collections.Generic;
+using UnityEngine;
 using Verse;
 
 namespace RimWorkaholic
@@ -90,6 +91,44 @@ namespace RimWorkaholic
             }
 
             return calculatedScore;
+        }
+
+        public class RimWorkaholicMod : Mod
+        {
+            public static RimWorkaholicSettings settings;
+
+            public RimWorkaholicMod(ModContentPack content) : base(content)
+            {
+                settings = GetSettings<RimWorkaholicSettings>();
+            }
+
+            public override string SettingsCategory() => "RimWorkaholic";
+
+            public override void DoSettingsWindowContents(Rect inRect)
+            {
+                settings.DoWindowContents(inRect);
+            }
+        }
+
+        // Add the new RimWorkaholicSettings class
+        public class RimWorkaholicSettings : ModSettings
+        {
+            public float exampleSetting = 1f;
+
+            public override void ExposeData()
+            {
+                base.ExposeData();
+                Scribe_Values.Look(ref exampleSetting, "exampleSetting", 1f);
+            }
+
+            public void DoWindowContents(Rect inRect)
+            {
+                Listing_Standard listing = new();
+                listing.Begin(inRect);
+                listing.Label("Example setting:");
+                exampleSetting = listing.Slider(exampleSetting, 0f, 10f);
+                listing.End();
+            }
         }
     }
 }

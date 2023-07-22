@@ -11,10 +11,10 @@
     </supportedVersions>
     <modDependencies>
         <li>
-            <packageId>RimHUD</packageId>
+            <packageId>jaxe.RimHUD</packageId>
             <displayName>RimHUD</displayName>
+            <steamWorkshopUrl>steam://url/CommunityFilePage/1508850027</steamWorkshopUrl>
             <downloadUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=1508850027</downloadUrl>
-            <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=1508850027</steamWorkshopUrl>
         </li>
         <li>
             <packageId>brrainz.harmony</packageId>

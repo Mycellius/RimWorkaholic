@@ -3,6 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using Verse;
 
+
+public static class ListingExtensions
+{
+    public static void EnumDropdown<TEnum>(this Listing_Standard listing, TEnum enumValue, Action<TEnum> setValue, Func<TEnum, string> labelFunc) where TEnum : Enum
+    {
+        Rect rect = listing.GetRect(30f);
+        if (Widgets.ButtonText(rect, labelFunc(enumValue)))
+        {
+            List<FloatMenuOption> options = new();
+            foreach (TEnum value in Enum.GetValues(typeof(TEnum)))
+            {
+                TEnum localValue = value;
+                options.Add(new FloatMenuOption(labelFunc(value), () => setValue(localValue)));
+            }
+            Find.WindowStack.Add(new FloatMenu(options));
+        }
+    }
+}
+
 namespace RimWorkaholic
 {
     public class WorkaholicScoreComp : ThingComp
@@ -16,7 +35,6 @@ namespace RimWorkaholic
 
         public WorkaholicScoreComp()
         {
-            // Initialize the ModSettings property with default values or load them from a configuration file
             ModSettings = new Settings
             {
                 ScoreCalculationMethod = Settings.CalculationMethod.SimpleSum,
@@ -52,8 +70,7 @@ namespace RimWorkaholic
             public enum CalculationMethod
             {
                 SimpleSum,
-                WeightedAverage,
-                CustomFormula
+                WeightedAverage
             }
 
             public enum DisplayFormat
@@ -83,11 +100,6 @@ namespace RimWorkaholic
                     float workEfficiencyWeight = 0.8f;
                     calculatedScore = (workOutput / DaysInQuadrum) * workEfficiencyWeight;
                     break;
-                case Settings.CalculationMethod.CustomFormula:
-                    // Calculate score using custom formula method
-                    // Replace this with your own custom formula
-                    calculatedScore = workOutput * 2;
-                    break;
             }
 
             return calculatedScore;
@@ -110,23 +122,43 @@ namespace RimWorkaholic
             }
         }
 
-        // Add the new RimWorkaholicSettings class
         public class RimWorkaholicSettings : ModSettings
         {
-            public float exampleSetting = 1f;
+            public Settings.CalculationMethod scoreCalculationMethod = Settings.CalculationMethod.SimpleSum;
+            public Settings.DisplayFormat scoreDisplayFormat = Settings.DisplayFormat.RawNumber;
+            public int scoreUpdateFrequency = 1; // In-game days
+            public float scoreDecayRate = 0.1f; // 10% decay rate
+            public Color highScoreColor = Color.green;
+            public Color lowScoreColor = Color.red;
 
             public override void ExposeData()
             {
                 base.ExposeData();
-                Scribe_Values.Look(ref exampleSetting, "exampleSetting", 1f);
+                Scribe_Values.Look(ref scoreCalculationMethod, "scoreCalculationMethod");
+                Scribe_Values.Look(ref scoreDisplayFormat, "scoreDisplayFormat");
+                Scribe_Values.Look(ref scoreUpdateFrequency, "scoreUpdateFrequency", 1);
+                Scribe_Values.Look(ref scoreDecayRate, "scoreDecayRate", 0.1f);
             }
 
             public void DoWindowContents(Rect inRect)
             {
                 Listing_Standard listing = new();
                 listing.Begin(inRect);
-                listing.Label("Example setting:");
-                exampleSetting = listing.Slider(exampleSetting, 0f, 10f);
+
+                listing.Label("Score calculation method:");
+                ListingExtensions.EnumDropdown(listing, scoreCalculationMethod, value => scoreCalculationMethod = value, (Settings.CalculationMethod method) => method.ToString());
+
+                listing.Gap(24f); // Add a gap between the dropdowns
+
+                listing.Label("Score display format:");
+                ListingExtensions.EnumDropdown(listing, scoreDisplayFormat, value => scoreDisplayFormat = value, (Settings.DisplayFormat format) => format.ToString());
+
+                listing.Label("Score update frequency (in-game days):");
+                scoreUpdateFrequency = (int)listing.Slider(scoreUpdateFrequency, 1, 30);
+
+                listing.Label("Score decay rate:");
+                scoreDecayRate = listing.Slider(scoreDecayRate, 0, 1);
+
                 listing.End();
             }
         }

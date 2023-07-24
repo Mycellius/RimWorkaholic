@@ -59,9 +59,10 @@ namespace RimWorkaholic
         {
             base.CompTick();
 
-            if (parent is Pawn)
+            if (parent is Pawn pawn)
             {
                 score = CalculateWorkOutputScore(ModSettings);
+                pawn.GetStatValue(StatDef.Named("ProductivityScore"), true); // Add this line
             }
         }
 

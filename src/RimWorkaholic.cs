@@ -23,6 +23,7 @@ namespace RimWorkaholic
 
         public override void GameComponentTick()
         {
+            Log.Message("GameComponentTick called");
             base.GameComponentTick();
 
             if (Find.TickManager.TicksGame % 60 == 0) // Update every second
@@ -49,6 +50,8 @@ namespace RimWorkaholic
 
                         RecordDef totalWorkDoneDef = DefDatabase<RecordDef>.GetNamed("TotalWorkDone");
                         pawn.records.AddTo(totalWorkDoneDef, totalWorkDone);
+                        Log.Message($"Updated record for pawn {pawn.Name}: {pawn.records.GetValue(totalWorkDoneDef)}");
+                        Log.Message($"Total work done for pawn {pawn.Name}: {totalWorkDone}");
                     }
                 }
             }

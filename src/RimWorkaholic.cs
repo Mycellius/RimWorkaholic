@@ -34,16 +34,14 @@ namespace RimWorkaholic
                     {
                         float totalWorkDone = 0;
 
-                        foreach (WorkGiverDef workGiver in DefDatabase<WorkGiverDef>.AllDefs)
+                        foreach (WorkTypeDef workType in DefDatabase<WorkTypeDef>.AllDefs)
                         {
-                            if (workGiver.workTags != WorkTags.None)
+                            foreach (WorkGiverDef workGiver in workType.workGiversByPriority)
                             {
-                                foreach (WorkTags workTag in workTagRecords.Keys)
+                                if (workGiver.workTags != WorkTags.None)
                                 {
-                                    if ((workGiver.workTags & workTag) != WorkTags.None)
-                                    {
-                                        totalWorkDone += pawn.records.GetAsInt(workTagRecords[workTag]);
-                                    }
+                                    RecordDef recordDef = workTagRecords[workGiver.workTags];
+                                    totalWorkDone += pawn.records.GetAsInt(recordDef);
                                 }
                             }
                         }

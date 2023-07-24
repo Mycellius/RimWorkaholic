@@ -9,7 +9,7 @@
 .dev-only/
 obj/
 debug/
-.OLDBCKP/
+*.zip
 *.csproj
 *.sln
 *.code-workspace

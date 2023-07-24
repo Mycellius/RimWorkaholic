@@ -8,7 +8,7 @@ namespace RimWorkaholic
     {
         private readonly Dictionary<WorkTags, RecordDef> workTagRecords;
 
-        public WorkTracker()
+        public WorkTracker(Game game)
         {
             workTagRecords = new Dictionary<WorkTags, RecordDef>();
             foreach (RecordDef recordDef in DefDatabase<RecordDef>.AllDefs)

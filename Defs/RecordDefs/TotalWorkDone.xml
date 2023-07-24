@@ -4,5 +4,6 @@
         <defName>TotalWorkDone</defName>
         <label>Total work done</label>
         <description>Total amount of work done by this pawn since joining the colony.</description>
+        <type>Number</type>
     </RecordDef>
 </Defs>

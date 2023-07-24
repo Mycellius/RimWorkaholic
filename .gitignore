@@ -9,6 +9,7 @@
 .dev-only/
 obj/
 debug/
+.OLDBCKP/
 *.csproj
 *.sln
 *.code-workspace
